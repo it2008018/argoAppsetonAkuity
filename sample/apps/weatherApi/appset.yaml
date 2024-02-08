@@ -12,7 +12,7 @@ spec:
   - matrix:
       generators:
       - git:
-          repoURL: <clusetrs-repo-TBC>
+          repoURL: https://github.com/it2008018/clusterconfigrepo
           revision: main
           files:
           - path: clusters/config/shared-config.yaml
