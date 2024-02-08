@@ -1,0 +1,83 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-deploy-prototype
+  labels:
+    app: sample-weatherapi
+spec:
+  selector:
+    matchLabels:
+      app: sample-weatherapi
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sample-weatherapi
+    spec:
+      containers:
+      - name: sample-weatherapi
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        image: acrname.azurecr.io/sample-linux-app
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: pw-weatherapp-env-file-vars
+              key: ENVIRONMENT
+        - name: FORECAST_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: pw-weatherapp-env-file-vars
+              key: FORECAST_API_URL
+        - name: FORECAST_API_SUMMARY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: pw-weatherapp-env-file-vars
+              key: FORECAST_API_SUMMARY_URL
+        - name: APPLICATIONINSIGHTS_CONNECTIONSTRING
+          valueFrom:
+            secretKeyRef:
+              name: sample-weatherapi-secrets
+              key: sample-weatherapi-dev-appinsights-connectionstring
+        - name: FC_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sample-weatherapi-secrets
+              key: sample-weatherapi-dev-forecastapi-authtoken
+        - name: FS_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sample-weatherapi-secrets
+              key: sample-weatherapi-dev-forecastsummary-authtoken
+        - name: PW_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sample-weatherapi-secrets
+              key: sample-weatherapi-dev-weatherapi-authtoken
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /app/appsettings.json
+          name: pw-config
+          subPath: appsettings.json
+        - mountPath: /mnt/secrets-store
+          name: secrets-store
+          readOnly: true
+      volumes:
+      - name: pw-config
+        configMap:
+          name: pw-weatherapp-config
+      - name: secrets-store
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: azure-kvname-msi
+# Read https://samcogan.com/creating-kubernetes-secrets-from-azure-key-vault-with-the-csi-driver/ on why this is necessary. 

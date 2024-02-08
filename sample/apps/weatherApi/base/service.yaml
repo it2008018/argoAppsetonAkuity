@@ -1,0 +1,15 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: sample-weatherapi-active
+  labels:
+    app: sample-weatherapi
+spec:
+  selector:
+    app: sample-weatherapi
+    # release: sample-weatherapi
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
