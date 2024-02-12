@@ -4,7 +4,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   creationTimestamp: null
-  name: weatherapi
+  name: yodasapp
   namespace: argocd
 spec:
   goTemplate: true
@@ -22,15 +22,15 @@ spec:
   syncPolicy: {}
   template:
     metadata:
-      name: "sampleweatherapi-{{.env}}"
+      name: "sampleyodasapp-{{.env}}"
     spec:
       project: default
       source:
         repoURL: https://github.com/it2008018/argoAppsetonAkuity
-        path: "products/sample/apps/weatherApi/overlays/{{.env}}"
+        path: "products/sample/apps/yodasapp/overlays/{{.env}}"
         targetRevision: main
       destination:
-        # namespace: "sampleweatherapi-{{.env}}"
+        # namespace: "sampleyodasapp-{{.env}}"
         server: "{{.server}}"
       ignoreDifferences:
       - group: argoproj.io
