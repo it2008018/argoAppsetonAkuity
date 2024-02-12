@@ -8,7 +8,7 @@ spec:
     namespace: 'argocd'
   project: default
   source:
-    path: products/sample/apps/weatherApi/
+    path: products/sample/apps/weatherApi/appsetfolder/
     repoURL: https://github.com/it2008018/argoAppsetonAkuity
     directory:
       recurse: true
