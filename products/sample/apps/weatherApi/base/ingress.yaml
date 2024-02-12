@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-  - host: dns_url
+  - host: cchaxcess.com
     http:
       paths:
       - path: /
