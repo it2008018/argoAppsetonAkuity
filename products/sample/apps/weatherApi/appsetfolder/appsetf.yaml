@@ -27,7 +27,7 @@ spec:
       project: default
       source:
         repoURL: https://github.com/it2008018/argoAppsetonAkuity
-        path: "products/sample/apps/yodasapp/overlays/{{.env}}"
+        path: "products/sample/apps/weatherApi/overlays/{{.env}}"
         targetRevision: main
       destination:
         # namespace: "sampleyodasapp-{{.env}}"
