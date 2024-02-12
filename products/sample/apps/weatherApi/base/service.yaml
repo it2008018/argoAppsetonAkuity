@@ -1,12 +1,12 @@
 ﻿apiVersion: v1
 kind: Service
 metadata:
-  name: sample-weatherapi-active
+  name:  yodas-gb
   labels:
-    app: sample-weatherapi
+    app:  yodas-gb
 spec:
   selector:
-    app: sample-weatherapi
+    app:  yodas-gb
     # release: sample-weatherapi
   ports:
   - protocol: TCP
