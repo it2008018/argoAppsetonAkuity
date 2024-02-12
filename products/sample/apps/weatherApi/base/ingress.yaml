@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sample-deploy-prototype-ingress
+  name:  yodas-gb-ingress
   annotations:
     appgw.ingress.kubernetes.io/appgw-ssl-certificate: cert_name
     kubernetes.io/ingress.class: azure/application-gateway
@@ -16,7 +16,7 @@ spec:
       - path: /
         backend:
           service:
-            name: sample-weatherapi-active
+            name:  yodas-gb
             port:
               number: 80
         pathType: Exact
