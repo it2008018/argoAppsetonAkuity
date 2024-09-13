@@ -8,7 +8,7 @@ images:
 bases:
 - ../../base
 
-namespace: sample-weatherapi-dev
+namespace: sample-weatherapi-t4
 
 configMapGenerator:
 - name: pw-weatherapp-config
